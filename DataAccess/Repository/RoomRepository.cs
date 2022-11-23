@@ -19,9 +19,14 @@ namespace DataAccess
             return availableRooms;
         }
 
-        public void ChangeStatus(int roomId)
+        public void ChangeRoomToOccupied(int roomId)
         {
-            
+            Room room = _context.Room.Where(x => x.Id == roomId).SingleOrDefault();
+            if (room.Status == "Available")
+            {
+                room.Status = "Occupied";
+            }
+            _context.SaveChanges();
         }
 
 

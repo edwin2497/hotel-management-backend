@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -28,19 +29,22 @@ namespace Entities
         [Required]
         public DateTime CheckOut { get; set; }
 
+        [MaxLength(50)]
+        [Required]
+        public string Status { get; set; }
+
         #endregion
 
         #region Constructors
 
-        public Reservation(int id, int idCustomer, Customer customer, int roomId, Room room, DateTime checkIn, DateTime checkOut)
+        public Reservation(int id, int idCustomer, int roomId,  DateTime checkIn, DateTime checkOut, string status)
         {
             Id=id;
             IdCustomer=idCustomer;
-            Customer=customer;
             RoomId=roomId;
-            Room=room;
             CheckIn=checkIn;
             CheckOut=checkOut;
+            Status=status;
         }
 
         public Reservation()

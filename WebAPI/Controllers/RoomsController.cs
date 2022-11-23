@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         /// Get
         /// </summary>
         /// <returns>List of objects</returns>
-        [HttpPost]
+        [HttpGet]
         [Route(nameof(GetAvailableRooms))]
         public IEnumerable<Room> GetAvailableRooms()
         {

@@ -4,14 +4,16 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20221123143927_Update-Room-Entitie-v4")]
+    partial class UpdateRoomEntitiev4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,10 +61,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("IdCustomer");
 
                     b.Property<int>("RoomId");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 

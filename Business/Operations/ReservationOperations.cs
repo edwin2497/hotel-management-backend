@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Entities;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -41,7 +42,7 @@ namespace Business
                 mongoDB.Add(audit); ///Add the previously created object
 
                 RoomOperations roomOperations = new RoomOperations(); ///Create instance towards room operations
-                roomOperations.ChangeRoomStatus(reservation.RoomId); ///Change room status
+                roomOperations.ChangeRoomToOccupied(reservation.RoomId); ///Change room status
 
 
                 return uow.Reservation.Insert(reservation); ///Add the object to the database
@@ -74,7 +75,7 @@ namespace Business
                 if (uowReservation != null)  ///Validates if the object exist
                 {
                     RoomOperations roomOperations = new RoomOperations(); ///Create instance towards room operations
-                    roomOperations.ChangeRoomStatus(reservation.RoomId); ///Change room status
+                    roomOperations.ChangeRoomToOccupied(reservation.RoomId); ///Change room status
                     
                     uow.DbContext.Entry(uowReservation).CurrentValues.SetValues(reservation);
 
@@ -119,5 +120,46 @@ namespace Business
                 throw ex;
             }
         }
+
+
+
+        ///<summary>Method to modify reservation object</summary>
+        /// <param name="reservation"></param>
+        ///<returns> Modified successfully</returns>
+        public string FinishReservation(Reservation reservation)
+        {
+            try
+            {
+                MongoDBAccess mongoDB = new MongoDBAccess(); ///Create instace towards data access for Mongo
+
+                Audit audit = new Audit("Reservation finished", DateTime.Now); ///Create audit type object to be added to mongo
+
+                mongoDB.Add(audit); ///Add the previously created object
+
+                Reservation uowReservation = uow.Reservation.GetId(reservation.Id); ///Search for object in database
+
+                if (uowReservation != null)  ///Validates if the object exist
+                {
+                    reservation.Status = "Finished"; ///Change status to finished
+                    
+                    uow.DbContext.Entry(uowReservation).CurrentValues.SetValues(reservation);
+
+                    return uow.Reservation.Modify(uowReservation);///Update the object on the database
+                }
+                return "Reservation not found";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error ReservationOperations.FinishReservation: {ex.Message}"); ///Print error message
+                throw ex;
+            }
+
+        }
+
+
+
+
+
+
     }
 }

@@ -129,15 +129,17 @@ namespace Business
         ///<summary>Method to change room status</summary>
         /// <param name="roomId"></param>
         ///<returns></returns>
-        public void ChangeRoomStatus(int roomId)
+        public void ChangeRoomToOccupied(int roomId)
         {
             try
             {
-                Room uowRoom = uow.Room.GetId(roomId); ///Search for object in database
+                //Room uowRoom = uow.Room.GetId(roomId); ///Search for object in database
 
-                uowRoom.Status = "Occupied"; ///Change the status of the room
-                
-                ModifyRoom(uowRoom); /// Update the searched room
+                //uowRoom.Status = "Occupied"; ///Change the status of the room
+
+                //ModifyRoom(uowRoom); /// Update the searched room
+
+                uow.Room.ChangeRoomToOccupied(roomId); ///Update the searched room
             }
             catch (Exception ex)
             {

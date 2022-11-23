@@ -10,7 +10,7 @@ namespace DataAccess
     {
         List<Room> GetAvailableRooms();
 
-        void ChangeStatus(int roomId)
+        void ChangeRoomToOccupied(int roomId)
         {
 
         }

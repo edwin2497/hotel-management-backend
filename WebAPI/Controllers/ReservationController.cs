@@ -57,5 +57,17 @@ namespace WebAPI.Controllers
         {
             return reservationOperation.DeleteReservation(id);
         }
+
+        /// <summary>
+        /// Modify
+        /// </summary>
+        /// <param name="reservation"></param>
+        /// <returns>Modified Succesfully</returns>
+        [HttpPost]
+        [Route(nameof(FinishReservation))]
+        public string FinishReservation(Reservation reservation)
+        {
+            return reservationOperation.FinishReservation(reservation);
+        }
     }
 }

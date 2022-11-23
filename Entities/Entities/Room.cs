@@ -22,23 +22,20 @@ namespace Entities
         [Required]
         public string Type { get; set; }
 
+        [Required]
+        public int Price { get; set; }
+
         #endregion
 
         #region Constructors
 
-        public Room(int id, int number, string status, string type)
+        public Room(int id, int number, string status, string type, int price)
         {
             Id=id;
             Number=number;
             Status=status;
             Type=type;
-        }
-
-        public Room( int number, string status, string type)
-        {
-            Number=number;
-            Status=status;
-            Type=type;
+            Price=price;
         }
 
         public Room()
